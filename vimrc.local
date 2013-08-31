@@ -8,6 +8,6 @@ if (&t_Co == 256 || has('gui_running'))
   if ($TERM_PROGRAM == 'iTerm.app')
     colorscheme solarized
   else
-    colorscheme desert
+    colorscheme solarized
   endif
 endif
