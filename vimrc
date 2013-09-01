@@ -9,6 +9,10 @@ set nocompatible
 " enable syntax highlighting
 syntax enable
 
+set guifont=Inconsolata-dz\ for\ Powerline:h11
+
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+
 set autoindent
 set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
 set backspace=2                                              " Fix broken backspace in some setups
@@ -38,7 +42,7 @@ set wildmode=longest,list,full
 set mouse=a
 if exists('$TMUX')  " Support resizing in tmux
   set ttymouse=xterm2
-endif
+endi
 
 " keyboard shortcuts
 let mapleader = ','
