@@ -38,6 +38,38 @@ set wildignore=log/**,node_modules/**,target/**,tmp/**,*.rbc
 set wildmenu                                                 " show a navigable menu for tab completion
 set wildmode=longest,list,full
 
+" MacVim settings
+set clipboard+=unnamed
+set vb t_vb=
+set guioptions-=m "no menu
+set guioptions-=T "no toolbar
+set guioptions-=l
+set guioptions-=L
+set guioptions-=r "no scrollbar
+set guioptions-=R
+
+nnoremap / /\v
+vnoremap / /\v
+"move easily through buffers
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+"disable arrow keys both in normal and insert mode
+"
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+
+"buffer shortcuts
+"previous buffer
+nnoremap <C-z> :bp
+"next buffer
+"nnoremap <C-x> :bn
+""followed from the number of a buffer
+nnoremap <C-a> :b
+
 " Enable basic mouse behavior such as resizing buffers.
 set mouse=a
 if exists('$TMUX')  " Support resizing in tmux
