@@ -50,11 +50,14 @@
 	path = vim/bundle/solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
 [submodule "vim/bundle/minibufexpl.vim"]
-    path = vim/bundle/minibufexpl.vim
-      url = git@github.com:fholgado/minibufexpl.vim.git
+        path = vim/bundle/minibufexpl.vim
+        url = git@github.com:fholgado/minibufexpl.vim.git
 [submodule "vim/bundle/javascript"]
 	path = vim/bundle/javascript
 	url = git://github.com/pangloss/vim-javascript.git
+[submodule "vim/bundle/YouCompleteMe"]
+	path = vim/bundle/YouCompleteMe
+	url = git://github.com/Valloric/YouCompleteMe.git
 [submodule "vim/bundle/ragtag"]
 	path = vim/bundle/ragtag
 	url = git://github.com/tpope/vim-ragtag.git
