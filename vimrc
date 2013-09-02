@@ -10,7 +10,7 @@ set nocompatible
 syntax enable
 
 set guifont=Inconsolata-dz\ for\ Powerline:h11
-
+set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
 set autoindent
@@ -37,6 +37,7 @@ set tabstop=8                                                " actual tabs occup
 set wildignore=log/**,node_modules/**,target/**,tmp/**,*.rbc
 set wildmenu                                                 " show a navigable menu for tab completion
 set wildmode=longest,list,full
+set colorcolumn=80                                           " show a line marker in 80 chars length
 
 " MacVim settings
 set clipboard+=unnamed
