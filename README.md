@@ -1,7 +1,19 @@
-# Maximum Awesome
+# Maximum Awesome Squared
 
 Config files for vim and tmux, lovingly tended by a small subculture of
-peace-loving hippies. Built for Mac OS X.
+peace-loving hippies. Built for Mac OS X
+
+---
+
+> This is a fork of the [square/maximum-awesome](https://github.com/square/maximum-awesome) repo. I added the following plugins, which suits more my preferences:
+
+* Solarized theme for MacVim, as well
+* [MiniBufExplorer](https://github.com/fholgado/minibufexpl.vim) plugin
+* [Powerline](https://github.com/Lokaltog/powerline) (this needs to be in the original repo imo)
+* [auto-pairs[(https://github.com/vim-scripts/Auto-Pairs) plugin
+* and [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors), great for refactoring
+
+----
 
 ## What's in it?
 
