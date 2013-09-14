@@ -1,2 +1,0 @@
-recursive-include powerline *.json *.vim
-recursive-include powerline/bindings *.*
