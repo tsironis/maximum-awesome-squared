@@ -13,6 +13,10 @@ set guifont=Inconsolata-dz\ for\ Powerline:h11
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
+" vim-airline settings
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+
 set autoindent
 set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
 set backspace=2                                              " Fix broken backspace in some setups
@@ -25,7 +29,7 @@ set ignorecase                                               " case-insensitive 
 set incsearch                                                " search as you type
 set laststatus=2                                             " always show statusline
 set list                                                     " show trailing whitespace
-set listchars=tab:▸\ ,trail:▫
+set listchars=tab:▸\ ,trail:·
 set number                                                   " show line numbers
 set ruler                                                    " show where you are
 set scrolloff=3                                              " show context above/below cursorline
@@ -45,6 +49,7 @@ set vb t_vb=
 set guioptions-=m "no menu
 set guioptions-=T "no toolbar
 set guioptions-=l
+set guioptions+=c "no popup messages
 set guioptions-=L
 set guioptions-=r "no scrollbar
 set guioptions-=R
