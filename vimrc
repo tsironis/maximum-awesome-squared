@@ -16,6 +16,7 @@ set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 " vim-airline settings
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
 set autoindent
 set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
