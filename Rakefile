@@ -131,7 +131,7 @@ task :default do
     Rake::Task['install:reattach_to_user_namespace'].invoke
     Rake::Task['install:tmux'].invoke
     Rake::Task['install:macvim'].invoke
-  else if RUBY_PLATFORM.include?('linux')
+  elsif RUBY_PLATFORM.include?('linux')
     puts "You're on Linux!"
     # There go Linux installation
   end
