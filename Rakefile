@@ -123,13 +123,18 @@ end
 
 desc 'Install these config files.'
 task :default do
-  Rake::Task['install:brew'].invoke
-  Rake::Task['install:the_silver_searcher'].invoke
-  Rake::Task['install:iterm'].invoke
-  Rake::Task['install:ctags'].invoke
-  Rake::Task['install:reattach_to_user_namespace'].invoke
-  Rake::Task['install:tmux'].invoke
-  Rake::Task['install:macvim'].invoke
+  if RUBY_PLATFORM.include?('darwin')
+    Rake::Task['install:brew'].invoke
+    Rake::Task['install:the_silver_searcher'].invoke
+    Rake::Task['install:iterm'].invoke
+    Rake::Task['install:ctags'].invoke
+    Rake::Task['install:reattach_to_user_namespace'].invoke
+    Rake::Task['install:tmux'].invoke
+    Rake::Task['install:macvim'].invoke
+  else if RUBY_PLATFORM.include?('linux')
+    puts "You're on Linux!"
+    # There go Linux installation
+  end
 
   step 'git submodules'
   sh 'git submodule update --init'
