@@ -13,7 +13,7 @@ peace-loving hippies. Built for Mac OS X
 * YouCompleteMe plugin
 * [auto-pairs[(https://github.com/vim-scripts/Auto-Pairs) plugin
 * and [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors), great for refactoring
-* {In Progress} Support for Linux
+* ```{In Progress}``` Support for Linux, you can already barely use it with simply running ```rake``` but more to come!
 
 ----
 
