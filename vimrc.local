@@ -1,4 +1,4 @@
-set nocursorline " don't highlight current line
+set cursorline " don't highlight current line
 
 " keyboard shortcuts
 inoremap jj <ESC>
@@ -8,6 +8,6 @@ if (&t_Co == 256 || has('gui_running'))
   if ($TERM_PROGRAM == 'iTerm.app')
     colorscheme solarized
   else
-    colorscheme solarized
+    colorscheme jellybeans
   endif
 endif
