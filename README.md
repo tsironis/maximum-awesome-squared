@@ -6,7 +6,6 @@ peace-loving hippies. Built for Mac OS X
 ---
 
 > This is a fork of the [square/maximum-awesome](https://github.com/square/maximum-awesome) repo. I added the following plugins, which suits more my preferences:
-* SHA: 16c999e8c71134401a78d4d46435517b2271d6ac
 
 * Jellybeans theme
 * [Vim-airline](https://github.com/bling/vim-airline) (this needs to be in the original repo imo)
