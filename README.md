@@ -10,8 +10,10 @@ peace-loving hippies. Built for Mac OS X
 * Jellybeans theme
 * [Vim-airline](https://github.com/bling/vim-airline) (this needs to be in the original repo imo)
 * Console dialogs, disabled MacVim's popup dialog
+* YouCompleteMe plugin
 * [auto-pairs[(https://github.com/vim-scripts/Auto-Pairs) plugin
 * and [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors), great for refactoring
+* ```{In Progress}``` Support for Linux, you can already barely use it with simply running ```rake``` but more to come!
 
 ----
 
