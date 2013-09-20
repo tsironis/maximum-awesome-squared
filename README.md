@@ -8,6 +8,10 @@ You can add () any additional vim plugins by adding the git repository info in t
 
 ----
 
+## Planned for the future
+* Full Ubuntu/Debian support
+* Better installation experience in both platforms
+
 ## What's in it?
 
 * [MacVim](https://code.google.com/p/macvim/) (independent or for use in a terminal)
