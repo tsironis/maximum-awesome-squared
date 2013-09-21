@@ -1,19 +1,16 @@
 # Maximum Awesome Squared
 
-Config files for vim and tmux, lovingly tended by a small subculture of
-peace-loving hippies. Built for Mac OS X
+> Config files for vim and tmux, lovingly tended by a small subculture of
+> peace-loving hippies. Built for Mac OS X
 
----
-
-> This is a fork of the [square/maximum-awesome](https://github.com/square/maximum-awesome) repo. I added the following plugins, which suits more my preferences:
-
-* Jellybeans theme
-* [Vim-airline](https://github.com/bling/vim-airline) (this needs to be in the original repo imo)
-* Console dialogs, disabled MacVim's popup dialog
-* [auto-pairs[(https://github.com/vim-scripts/Auto-Pairs) plugin
-* and [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors), great for refactoring
+This is a fork of the awesome [square/maximum-awesome](https://github.com/square/maximum-awesome) repo. I added the following some plugins, settings and themes, which suits more my preferences. It's a bit more opiniated than the original (although keeping it lightweight), but I think would be great for Vim beginners (like me).
+You can add () any additional vim plugins by adding the git repository info in the ```.gitmodules``` file.
 
 ----
+
+## Planned for the future
+* Full Ubuntu/Debian support
+* Better installation experience in both platforms
 
 ## What's in it?
 
@@ -21,6 +18,15 @@ peace-loving hippies. Built for Mac OS X
 * [iTerm 2](http://www.iterm2.com/)
 * [tmux](http://tmux.sourceforge.net/)
 * Awesome syntax highlighting with the [Solarized color scheme](http://ethanschoonover.com/solarized)
+
+Additionally:
+* Jellybeans theme
+* [Vim-airline](https://github.com/bling/vim-airline) (this needs to be in the original repo imo)
+* Console dialogs, disabled MacVim's popup dialog
+* YouCompleteMe plugin
+* [auto-pairs[(https://github.com/vim-scripts/Auto-Pairs) plugin
+* and [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors), great for refactoring
+* ```{In Progress}``` Support for Linux, you can already barely use it with simply running ```rake``` but more to come!
 
 ### vim
 
@@ -55,16 +61,6 @@ peace-loving hippies. Built for Mac OS X
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
-
-Any contributors to the master maximum-awesome repository must sign the
-[Individual Contributor License Agreement (CLA)][cla].  It's a short form that
-covers our bases and makes sure you're eligible to contribute.
-
-[cla]: https://spreadsheets.google.com/spreadsheet/viewform?formkey=dDViT2xzUHAwRkI3X3k5Z0lQM091OGc6MQ&ndplr=1
-
-When you have a change you'd like to see in the master repository, [send a pull
-request](https://github.com/square/maximum-awesome/pulls). Before we merge your
-request, we'll make sure you're in the list of people who have signed a CLA.
 
 ## Acknowledgements
 
