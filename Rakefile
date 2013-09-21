@@ -154,29 +154,37 @@ exec /Applications/MacVim.app/Contents/MacOS/Vim "$@"
       end
     end
   end
-end
 
-desc 'Install these config files.'
-task :default do
-  if RUBY_PLATFORM.include?('darwin')
-    Rake::Task['install:brew'].invoke
-    Rake::Task['install:the_silver_searcher'].invoke
-    Rake::Task['install:iterm'].invoke
-    Rake::Task['install:ctags'].invoke
-    Rake::Task['install:reattach_to_user_namespace'].invoke
-    Rake::Task['install:tmux'].invoke
-    Rake::Task['install:macvim'].invoke
-  elsif RUBY_PLATFORM.include?('linux')
-    puts "You're on Linux!"
-    # There go Linux installation
+  desc 'Install GVim'
+  task :gvim do
+    step 'GVim'
+    unless app? 'gvim'
+      apt_install 'vim-gnome'
+    end
   end
 
-  step 'git submodules'
-  sh 'git submodule update --init'
+  task :iterm2color do
+    step 'iterm2 colorschemes'
+    colorschemes = `defaults read com.googlecode.iterm2 'Custom Color Presets'`
+    dark  = colorschemes !~ /Solarized Dark/
+    light = colorschemes !~ /Solarized Light/
+    sh('open', '-a', '/Applications/iTerm.app', File.expand_path('iterm2-colors-solarized/Solarized Dark.itermcolors')) if dark
+    sh('open', '-a', '/Applications/iTerm.app', File.expand_path('iterm2-colors-solarized/Solarized Light.itermcolors')) if light
 
-  # TODO install gem ctags?
-  # TODO run gem ctags?
+    step 'iterm2 profiles'
+    puts
+    puts "  Your turn!"
+    puts
+    puts "  Go and manually set up Solarized Light and Dark profiles in iTerm2."
+    puts "  (You can do this in 'Preferences' -> 'Profiles' by adding a new profile,"
+    puts "  then clicking the 'Colors' tab, 'Load Presets...' and choosing a Solarized option.)"
+    puts "  Also be sure to set Terminal Type to 'xterm-256color' in the 'Terminal' tab."
+    puts
+  end
+end
 
+desc 'Symlink config files'
+task :symlink do
   step 'symlink'
   link_file 'vim'       , '~/.vim'
   link_file 'tmux.conf' , '~/.tmux.conf'
@@ -184,23 +192,42 @@ task :default do
   unless File.exist?(File.expand_path('~/.vimrc.local'))
     cp File.expand_path('vimrc.local'), File.expand_path('~/.vimrc.local'), :verbose => true
   end
+end
 
-  step 'iterm2 colorschemes'
-  colorschemes = `defaults read com.googlecode.iterm2 'Custom Color Presets'`
-  dark  = colorschemes !~ /Solarized Dark/
-  light = colorschemes !~ /Solarized Light/
-  sh('open', '-a', '/Applications/iTerm.app', File.expand_path('iterm2-colors-solarized/Solarized Dark.itermcolors')) if dark
-  sh('open', '-a', '/Applications/iTerm.app', File.expand_path('iterm2-colors-solarized/Solarized Light.itermcolors')) if light
+desc 'Install these config files.'
+task :default do
+  # Mac vs. Linux different Dependencies
+  if mac?
+    Rake::Task['install:brew'].invoke
+    Rake::Task['install:iterm'].invoke
+    Rake::Task['install:macvim'].invoke
+  elsif linux?
+    Rake::Task['install:gvim'].invoke
+  end
+  # Common dependencies
+  Rake::Task['install:the_silver_searcher'].invoke
+  Rake::Task['install:ctags'].invoke
+  Rake::Task['install:tmux'].invoke
+  Rake::Task['install:reattach_to_user_namespace'].invoke if mac?
 
-  step 'iterm2 profiles'
-  puts
-  puts "  Your turn!"
-  puts
-  puts "  Go and manually set up Solarized Light and Dark profiles in iTerm2."
-  puts "  (You can do this in 'Preferences' -> 'Profiles' by adding a new profile,"
-  puts "  then clicking the 'Colors' tab, 'Load Presets...' and choosing a Solarized option.)"
-  puts "  Also be sure to set Terminal Type to 'xterm-256color' in the 'Terminal' tab."
+  step 'git submodules'
+  
+  puts "> If you want to add or exclude Vim plugins, please edit .gitmodules file. Continue? (y/n)"
+  yes = gets.chomp.downcase
+  if yes == 'y'
+    sh 'git submodule update --init'
+  end
+
+  # TODO install gem ctags?
+  # TODO run gem ctags?
+
+  # Symlink config files
+  Rake::Task['symlink']
+
+  # Install iTerm 2 colorschemes
+  Rake::Task['install:iterm2color'].invoke if mac?
+
   puts
   puts "  Enjoy!"
-  puts
+
 end
