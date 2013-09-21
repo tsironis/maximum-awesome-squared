@@ -5,6 +5,16 @@ def brew_install(package, *options)
   sh "brew install #{package} #{options.join ' '}"
 end
 
+def apt_install(package, *options)
+  if `apt-cache search #{package}`.empty?
+    puts 
+    puts "  \e[41m[x] Please install #{package} manually. Search the web for more info\e[0m"
+    return
+  end
+
+  sh "sudo apt-get install #{package}"
+end
+
 def step(description)
   description = "-- #{description} "
   description = description.ljust(80, '-')
@@ -13,12 +23,25 @@ def step(description)
 end
 
 def app_path(name)
-  path = "/Applications/#{name}.app"
-  ["~#{path}", path].each do |full_path|
-    return full_path if File.directory?(full_path)
+  if mac?
+    path = "/Applications/#{name}.app"
+    ["~#{path}", path].each do |full_path|
+      return full_path if File.directory?(full_path)
+    end
+  elsif linux?
+    full_path = `which #{name}`
+    return full_path if File.file?(full_path)
   end
 
   return nil
+end
+
+def mac?()
+  return RUBY_PLATFORM.include?('darwin')
+end
+
+def linux?()
+  return RUBY_PLATFORM.include?('linux')
 end
 
 def app?(name)
