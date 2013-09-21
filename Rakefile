@@ -84,7 +84,11 @@ namespace :install do
   desc 'Install The Silver Searcher'
   task :the_silver_searcher do
     step 'the_silver_searcher'
-    brew_install 'the_silver_searcher'
+    if mac?
+      brew_install 'the_silver_searcher'
+    elsif linux?
+      apt_install 'silversearcher-ag'
+    end
   end
 
   desc 'Install iTerm'
@@ -103,7 +107,11 @@ namespace :install do
   desc 'Install ctags'
   task :ctags do
     step 'ctags'
-    brew_install 'ctags'
+    if mac?
+      brew_install 'ctags'
+    elsif linux?
+      apt_install 'exuberant-ctags'
+    end
   end
 
   desc 'Install reattach-to-user-namespace'
@@ -115,7 +123,11 @@ namespace :install do
   desc 'Install tmux'
   task :tmux do
     step 'tmux'
-    brew_install 'tmux'
+    if mac?
+      brew_install 'tmux'
+    elsif linux?
+      apt_install 'tmux'
+    end
   end
 
   desc 'Install MacVim'
