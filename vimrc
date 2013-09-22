@@ -30,7 +30,7 @@ set ignorecase                                               " case-insensitive 
 set incsearch                                                " search as you type
 set laststatus=2                                             " always show statusline
 set list                                                     " show trailing whitespace
-set listchars=tab:▸\ ,trail:·
+set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
 set number                                                   " show line numbers
 set ruler                                                    " show where you are
 set scrolloff=3                                              " show context above/below cursorline
@@ -54,6 +54,10 @@ set guioptions+=c "no popup messages
 set guioptions-=L
 set guioptions-=r "no scrollbar
 set guioptions-=R
+
+" Center search matches
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 nnoremap / /\v
 vnoremap / /\v
