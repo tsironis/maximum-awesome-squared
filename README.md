@@ -18,12 +18,20 @@ You can add () any additional vim plugins by adding the git repository info in t
 
 ## What's in it?
 
+### Mac OS X specific
 * [MacVim](https://code.google.com/p/macvim/) (independent or for use in a terminal)
 * [iTerm 2](http://www.iterm2.com/)
+
+### Linux specific
+* Gvim (vim-gnome package)
+
+### Both platforms
 * [tmux](http://tmux.sourceforge.net/)
+* ctags
+* [the_silver_searcher](https://github.com/ggreer/the_silver_searcher)
 * Awesome syntax highlighting with the [Solarized color scheme](http://ethanschoonover.com/solarized)
 
-Additionally:
+### Plugins & themes
 * Jellybeans theme
 * [Vim-airline](https://github.com/bling/vim-airline) (this needs to be in the original repo imo)
 * Console dialogs, disabled MacVim's popup dialog
@@ -31,6 +39,8 @@ Additionally:
 * [auto-pairs](https://github.com/vim-scripts/Auto-Pairs) plugin
 * and [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors), great for refactoring
 * ```{In Progress}``` Support for Linux, you can already barely use it with simply running ```rake``` but more to come!
+
+---
 
 ### vim
 
