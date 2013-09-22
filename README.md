@@ -1,4 +1,4 @@
-# Maximum Awesome Squared
+# Maximum Awesome Squared [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/tsironis/maximum-awesome-squared/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 > Config files for vim and tmux, lovingly tended by a small subculture of
 > peace-loving hippies. Built for Mac OS X
@@ -70,7 +70,4 @@ Additionally:
 
 Thanks to the vimsters at Square who put this together. Thanks to Tim Pope for
 his awesome vim plugins.
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/tsironis/maximum-awesome-squared/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
