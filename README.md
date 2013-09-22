@@ -12,6 +12,10 @@ You can add () any additional vim plugins by adding the git repository info in t
 * Full Ubuntu/Debian support
 * Better installation experience in both platforms
 
+## What it looks like?
+
+![Maximum Awesome Squared animation](http://i.imgur.com/GUUm9q0.gif)
+
 ## What's in it?
 
 * [MacVim](https://code.google.com/p/macvim/) (independent or for use in a terminal)
