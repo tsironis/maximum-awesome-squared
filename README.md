@@ -70,3 +70,7 @@ Additionally:
 
 Thanks to the vimsters at Square who put this together. Thanks to Tim Pope for
 his awesome vim plugins.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/tsironis/maximum-awesome-squared/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
