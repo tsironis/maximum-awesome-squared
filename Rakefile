@@ -181,18 +181,19 @@ exec /Applications/MacVim.app/Contents/MacOS/Vim "$@"
     puts "  Also be sure to set Terminal Type to 'xterm-256color' in the 'Terminal' tab."
     puts
   end
-end
 
-desc 'Symlink config files'
-task :symlink do
-  step 'symlink'
-  link_file 'vim'       , '~/.vim'
-  link_file 'tmux.conf' , '~/.tmux.conf'
-  link_file 'vimrc'     , '~/.vimrc'
-  unless File.exist?(File.expand_path('~/.vimrc.local'))
-    cp File.expand_path('vimrc.local'), File.expand_path('~/.vimrc.local'), :verbose => true
+  desc 'Symlink config files'
+  task :symlink do
+    step 'symlink'
+    link_file 'vim'       , '~/.vim'
+    link_file 'tmux.conf' , '~/.tmux.conf'
+    link_file 'vimrc'     , '~/.vimrc'
+    unless File.exist?(File.expand_path('~/.vimrc.local'))
+      cp File.expand_path('vimrc.local'), File.expand_path('~/.vimrc.local'), :verbose => true
+    end
   end
 end
+
 
 desc 'Install these config files.'
 task :default do
@@ -211,22 +212,22 @@ task :default do
   Rake::Task['install:reattach_to_user_namespace'].invoke if mac?
 
   step 'git submodules'
-  
+
   puts "> If you want to add or exclude Vim plugins, please edit .gitmodules file. Continue? (y/n)"
   yes = gets.chomp.downcase
   if yes == 'y'
     submods = Hash.new
-     
+
     %x{git config -f .gitmodules --get-regexp '^submodule\..*\.(path|url)$'}.lines.each do |l|
     submodule, key, value = l.match(/^submodule\.(.*)\.(path|url)\s+(.*)$/)[1..3]
     submods[submodule] = Hash.new unless submods[submodule].is_a?(Hash)
     submods[submodule][key] = value
     end
-     
+
     submods.each_pair do |s,k|
     %x{git submodule add #{k['url']} #{k['path']}}
     end
-     
+
     %x{git submodule sync}
   end
 
@@ -234,7 +235,7 @@ task :default do
   # TODO run gem ctags?
 
   # Symlink config files
-  Rake::Task['symlink']
+  Rake::Task['install:symlink']
 
   # Install iTerm 2 colorschemes
   Rake::Task['install:iterm2color'].invoke if mac?
