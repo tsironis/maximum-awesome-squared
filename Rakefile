@@ -5,6 +5,16 @@ def brew_install(package, *options)
   sh "brew install #{package} #{options.join ' '}"
 end
 
+def apt_install(package, *options)
+  if `apt-cache search #{package}`.empty?
+    puts 
+    puts "  \e[41m[x] Please install #{package} manually. Search the web for more info\e[0m"
+    return
+  end
+
+  sh "sudo apt-get install #{package}"
+end
+
 def step(description)
   description = "-- #{description} "
   description = description.ljust(80, '-')
@@ -13,12 +23,25 @@ def step(description)
 end
 
 def app_path(name)
-  path = "/Applications/#{name}.app"
-  ["~#{path}", path].each do |full_path|
-    return full_path if File.directory?(full_path)
+  if mac?
+    path = "/Applications/#{name}.app"
+    ["~#{path}", path].each do |full_path|
+      return full_path if File.directory?(full_path)
+    end
+  elsif linux?
+    full_path = `which #{name}`
+    return full_path if File.file?(full_path)
   end
 
   return nil
+end
+
+def mac?()
+  return RUBY_PLATFORM.include?('darwin')
+end
+
+def linux?()
+  return RUBY_PLATFORM.include?('linux')
 end
 
 def app?(name)
@@ -61,7 +84,11 @@ namespace :install do
   desc 'Install The Silver Searcher'
   task :the_silver_searcher do
     step 'the_silver_searcher'
-    brew_install 'the_silver_searcher'
+    if mac?
+      brew_install 'the_silver_searcher'
+    elsif linux?
+      apt_install 'silversearcher-ag'
+    end
   end
 
   desc 'Install iTerm'
@@ -80,7 +107,11 @@ namespace :install do
   desc 'Install ctags'
   task :ctags do
     step 'ctags'
-    brew_install 'ctags'
+    if mac?
+      brew_install 'ctags'
+    elsif linux?
+      apt_install 'exuberant-ctags'
+    end
   end
 
   desc 'Install reattach-to-user-namespace'
@@ -92,7 +123,11 @@ namespace :install do
   desc 'Install tmux'
   task :tmux do
     step 'tmux'
-    brew_install 'tmux'
+    if mac?
+      brew_install 'tmux'
+    elsif linux?
+      apt_install 'tmux'
+    end
   end
 
   desc 'Install MacVim'
@@ -119,53 +154,93 @@ exec /Applications/MacVim.app/Contents/MacOS/Vim "$@"
       end
     end
   end
+
+  desc 'Install GVim'
+  task :gvim do
+    step 'GVim'
+    unless app? 'gvim'
+      apt_install 'vim-gnome'
+    end
+  end
+
+  task :iterm2color do
+    step 'iterm2 colorschemes'
+    colorschemes = `defaults read com.googlecode.iterm2 'Custom Color Presets'`
+    dark  = colorschemes !~ /Solarized Dark/
+    light = colorschemes !~ /Solarized Light/
+    sh('open', '-a', '/Applications/iTerm.app', File.expand_path('iterm2-colors-solarized/Solarized Dark.itermcolors')) if dark
+    sh('open', '-a', '/Applications/iTerm.app', File.expand_path('iterm2-colors-solarized/Solarized Light.itermcolors')) if light
+
+    step 'iterm2 profiles'
+    puts
+    puts "  Your turn!"
+    puts
+    puts "  Go and manually set up Solarized Light and Dark profiles in iTerm2."
+    puts "  (You can do this in 'Preferences' -> 'Profiles' by adding a new profile,"
+    puts "  then clicking the 'Colors' tab, 'Load Presets...' and choosing a Solarized option.)"
+    puts "  Also be sure to set Terminal Type to 'xterm-256color' in the 'Terminal' tab."
+    puts
+  end
+
+  desc 'Symlink config files'
+  task :symlink do
+    step 'symlink'
+    link_file 'vim'       , '~/.vim'
+    link_file 'tmux.conf' , '~/.tmux.conf'
+    link_file 'vimrc'     , '~/.vimrc'
+    unless File.exist?(File.expand_path('~/.vimrc.local'))
+      cp File.expand_path('vimrc.local'), File.expand_path('~/.vimrc.local'), :verbose => true
+    end
+  end
 end
+
 
 desc 'Install these config files.'
 task :default do
-  if RUBY_PLATFORM.include?('darwin')
+  # Mac vs. Linux different Dependencies
+  if mac?
     Rake::Task['install:brew'].invoke
-    Rake::Task['install:the_silver_searcher'].invoke
     Rake::Task['install:iterm'].invoke
-    Rake::Task['install:ctags'].invoke
-    Rake::Task['install:reattach_to_user_namespace'].invoke
-    Rake::Task['install:tmux'].invoke
     Rake::Task['install:macvim'].invoke
-  elsif RUBY_PLATFORM.include?('linux')
-    puts "You're on Linux!"
-    # There go Linux installation
+  elsif linux?
+    Rake::Task['install:gvim'].invoke
   end
+  # Common dependencies
+  Rake::Task['install:the_silver_searcher'].invoke
+  Rake::Task['install:ctags'].invoke
+  Rake::Task['install:tmux'].invoke
+  Rake::Task['install:reattach_to_user_namespace'].invoke if mac?
 
   step 'git submodules'
-  sh 'git submodule update --init'
+
+  puts "> If you want to add or exclude Vim plugins, please edit .gitmodules file. Continue? (y/n)"
+  yes = gets.chomp.downcase
+  if yes == 'y'
+    submods = Hash.new
+
+    %x{git config -f .gitmodules --get-regexp '^submodule\..*\.(path|url)$'}.lines.each do |l|
+    submodule, key, value = l.match(/^submodule\.(.*)\.(path|url)\s+(.*)$/)[1..3]
+    submods[submodule] = Hash.new unless submods[submodule].is_a?(Hash)
+    submods[submodule][key] = value
+    end
+
+    submods.each_pair do |s,k|
+    %x{git submodule add #{k['url']} #{k['path']}}
+    end
+
+    %x{git submodule sync}
+  end
 
   # TODO install gem ctags?
   # TODO run gem ctags?
 
-  step 'symlink'
-  link_file 'vim'       , '~/.vim'
-  link_file 'tmux.conf' , '~/.tmux.conf'
-  link_file 'vimrc'     , '~/.vimrc'
-  unless File.exist?(File.expand_path('~/.vimrc.local'))
-    cp File.expand_path('vimrc.local'), File.expand_path('~/.vimrc.local'), :verbose => true
-  end
+  # Symlink config files
+  Rake::Task['install:symlink']
 
-  step 'iterm2 colorschemes'
-  colorschemes = `defaults read com.googlecode.iterm2 'Custom Color Presets'`
-  dark  = colorschemes !~ /Solarized Dark/
-  light = colorschemes !~ /Solarized Light/
-  sh('open', '-a', '/Applications/iTerm.app', File.expand_path('iterm2-colors-solarized/Solarized Dark.itermcolors')) if dark
-  sh('open', '-a', '/Applications/iTerm.app', File.expand_path('iterm2-colors-solarized/Solarized Light.itermcolors')) if light
+  # Install iTerm 2 colorschemes
+  Rake::Task['install:iterm2color'].invoke if mac?
 
-  step 'iterm2 profiles'
-  puts
-  puts "  Your turn!"
-  puts
-  puts "  Go and manually set up Solarized Light and Dark profiles in iTerm2."
-  puts "  (You can do this in 'Preferences' -> 'Profiles' by adding a new profile,"
-  puts "  then clicking the 'Colors' tab, 'Load Presets...' and choosing a Solarized option.)"
-  puts "  Also be sure to set Terminal Type to 'xterm-256color' in the 'Terminal' tab."
   puts
   puts "  Enjoy!"
-  puts
+
 end

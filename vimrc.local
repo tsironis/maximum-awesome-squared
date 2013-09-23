@@ -3,6 +3,9 @@ set cursorline " don't highlight current line
 " keyboard shortcuts
 inoremap jj <ESC>
 
+" HTML tag closing
+inoremap <C-.> <space><bs><esc>:call InsertCloseTag()<cr>a
+
 " gui settings
 if (&t_Co == 256 || has('gui_running'))
   if ($TERM_PROGRAM == 'iTerm.app')
