@@ -112,3 +112,6 @@
 [submodule "vim/bundle/jellybeans.vim"]
 	path = vim/bundle/jellybeans.vim
 	url = https://github.com/nanotech/jellybeans.vim
+[submodule "vim/bundle/emmet.vim"]
+	path = vim/bundle/emmet.vim
+	url = https://github.com/mattn/emmet-vim
