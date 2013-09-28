@@ -112,3 +112,6 @@
 [submodule "vim/bundle/emmet.vim"]
 	path = vim/bundle/emmet.vim
 	url = https://github.com/mattn/emmet-vim
+[submodule "vim/bundle/supertab"]
+	path = vim/bundle/supertab
+	url = https://github.com/ervandew/supertab
