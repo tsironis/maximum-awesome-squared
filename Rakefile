@@ -242,5 +242,6 @@ task :default do
 
   puts
   puts "  Enjoy!"
+  puts
 
 end
