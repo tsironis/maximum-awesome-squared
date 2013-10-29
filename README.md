@@ -1,4 +1,5 @@
->  ## Deprecated in favor of [marvim](http://github.com/tsironis/marvim)
+## Deprecated in favor of [marvim](http://github.com/tsironis/marvim)
+----
 
 # Maximum Awesome Squared [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/tsironis/maximum-awesome-squared/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
