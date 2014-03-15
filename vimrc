@@ -1,150 +1,87 @@
-" set up pathogen, https://github.com/tpope/vim-pathogen
+filetype on " without this vim emits a zero exit status, later, because of :ft off
 filetype off
-call pathogen#infect()
-filetype plugin indent on
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
 
-" don't bother with vi compatibility
+if filereadable(expand("~/.vimrc.bundles"))
+  source ~/.vimrc.bundles
+endif
+if filereadable(expand("~/.vimrc.bundles.local"))
+  source ~/.vimrc.bundles.local
+endif
+
+syntax on
 set nocompatible
-
-" enable syntax highlighting
-syntax enable
-
-set guifont=Inconsolata-dz\ for\ Powerline:h11
-set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+set clipboard=unnamed 	" yank and paste with the system clipboard
+filetype plugin indent on
 
 " vim-airline settings
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
 
+" Editing preferences
 set autoindent
-set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
-set backspace=2                                              " Fix broken backspace in some setups
-set backupcopy=yes                                           " see :help crontab
-set clipboard=unnamed                                        " yank and paste with the system clipboard
-set directory-=.                                             " don't store swapfiles in the current directory
-set encoding=utf-8
-set expandtab                                                " expand tabs to spaces
-set ignorecase                                               " case-insensitive search
-set incsearch                                                " search as you type
-set laststatus=2                                             " always show statusline
-set list                                                     " show trailing whitespace
-set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
-set number                                                   " show line numbers
-set ruler                                                    " show where you are
-set scrolloff=3                                              " show context above/below cursorline
-set shiftwidth=2                                             " normal mode indentation commands use 2 spaces
-set showcmd
-set smartcase                                                " case-sensitive search if any caps
-set softtabstop=2                                            " insert mode tab and backspace use 2 spaces
-set tabstop=8                                                " actual tabs occupy 8 characters
-set wildignore=log/**,node_modules/**,target/**,tmp/**,*.rbc
-set wildmenu                                                 " show a navigable menu for tab completion
+set autoread		" reload files when changed on disk, i.e. via `git checkout` 
+set encoding=utf-8	" encoding preference
+set expandtab		" expand tabs to spaces
+set smartcase 		" case-sensitive search if any caps
+set softtabstop=2 	" insert mode tab and backspace use 2 spaces
+set tabstop=2 		" actual tabs occupy 8 characters
+set shiftwidth=2
+set wildmenu " show a navigable menu for tab completion
 set wildmode=longest,list,full
-set colorcolumn=80                                           " show a line marker in 80 chars length
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*/node_modules,*/bower_components,*/fixtures  " ignores misc. files
+set hidden
 
-" MacVim settings
-set clipboard+=unnamed
-set vb t_vb=
-set guioptions-=m "no menu
-set guioptions-=T "no toolbar
-set guioptions-=l
-set guioptions+=c "no popup messages
-set guioptions-=L
-set guioptions-=r "no scrollbar
+" Searching preferences
+set ignorecase		" case-insensitive search
+set incsearch		" search as you type
+
+" Visual settings
+set number 		" Show row numbers
+set cursorline		" Highlight current line
+set gfn=Inconsolata-dz\ for\ Powerline:h12
+colorscheme jellybeans	" Default colorscheme jellybeans
+set noshowmode		" Hide the default mode text below statusline
+set laststatus=2
+set list		" show trailing whitespace
+set listchars=tab:▸\ ,trail:·,extends:❯,precedes:❮
+set guioptions+=c	" supresses popup messages in the statusline (macvim)
+set guioptions-=L	" no left scrollbar
+set guioptions-=r	" no right scrollbar
 set guioptions-=R
 
-" Center search matches
+" Keyboard shortcuts
+let mapleader = ','
+nnoremap / /\v
 nnoremap n nzzzv
 nnoremap N Nzzzv
+nnoremap <C-a> :b
+nnoremap ; :
+map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
-nnoremap / /\v
-vnoremap / /\v
-"move easily through buffers
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-"disable arrow keys both in normal and insert mode
-"
+" md is markdown
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+
+" Swap settings
+set directory-=.
+
+let g:miniBufExplStatusLineText = ""
+
+" Plugin settings
+let g:ctrlp_match_window = 'max:20'
+
+
+" Load local settings
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
+
 nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
-
-"buffer shortcuts
-"previous buffer
-nnoremap <C-z> :bp
-"next buffer
-"nnoremap <C-x> :bn
-""followed from the number of a buffer
-nnoremap <C-a> :b
-
-" Enable basic mouse behavior such as resizing buffers.
-set mouse=a
-if exists('$TMUX')  " Support resizing in tmux
-  set ttymouse=xterm2
-endi
-
-" keyboard shortcuts
-let mapleader = ','
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
-map <leader>l :Align
-nmap <leader>a :Ack 
-nmap <leader>b :CtrlPBuffer<CR>
-nmap <leader>d :NERDTreeToggle<CR>
-nmap <leader>f :NERDTreeFind<CR>
-nmap <leader>t :CtrlP<CR>
-nmap <leader>T :CtrlPClearCache<CR>:CtrlP<CR><CR>
-nmap <leader>] :TagbarToggle<CR>
-nmap <leader><space> :call whitespace#strip_trailing()<CR>
-nmap <leader>g :GitGutterToggle<CR>
-nmap <leader>c <Plug>Kwbd
-map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
-
-" plugin settings
-let g:ctrlp_match_window = 'order:ttb,max:20'
-let g:NERDSpaceDelims=1
-let g:gitgutter_enabled = 0
-
-" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
-if executable('ag')
-  let g:ackprg = 'ag --nogroup --column'
-
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
-
-" fdoc is yaml
-autocmd BufRead,BufNewFile *.fdoc set filetype=yaml
-" md is markdown
-autocmd BufRead,BufNewFile *.md set filetype=markdown
-" extra rails.vim help
-autocmd User Rails silent! Rnavcommand decorator      app/decorators            -glob=**/* -suffix=_decorator.rb
-autocmd User Rails silent! Rnavcommand observer       app/observers             -glob=**/* -suffix=_observer.rb
-autocmd User Rails silent! Rnavcommand feature        features                  -glob=**/* -suffix=.feature
-autocmd User Rails silent! Rnavcommand job            app/jobs                  -glob=**/* -suffix=_job.rb
-autocmd User Rails silent! Rnavcommand mediator       app/mediators             -glob=**/* -suffix=_mediator.rb
-autocmd User Rails silent! Rnavcommand stepdefinition features/step_definitions -glob=**/* -suffix=_steps.rb
-" automatically rebalance windows on vim resize
-autocmd VimResized * :wincmd =
-
-" Fix Cursor in TMUX
-if exists('$TMUX')
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
-
-" Plugin settings
-let g:ctrlp_match_window = 'max:20'
-let g:ctrlp_max_files = 0
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
