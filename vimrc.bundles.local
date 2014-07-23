@@ -1,4 +1,3 @@
-Bundle 'nanotech/jellybeans.vim'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle "kchmck/vim-coffee-script"
 Bundle 'pangloss/vim-javascript'

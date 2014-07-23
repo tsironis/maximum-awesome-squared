@@ -1,3 +1,4 @@
+Bundle 'nanotech/jellybeans.vim'
 Bundle 'bling/vim-airline'
 Bundle 'kien/ctrlp.vim'
 Bundle 'fholgado/minibufexpl.vim'
