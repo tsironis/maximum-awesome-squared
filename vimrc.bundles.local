@@ -1,6 +1,5 @@
 Bundle 'terryma/vim-multiple-cursors'
-Bundle "kchmck/vim-coffee-script"
 Bundle 'pangloss/vim-javascript'
 Bundle 'groenewege/vim-less'
-Bundle 'aaronbieber/vim-quicktask'
-Bundle 'zenorocha/dracula-theme'
+Bundle 'rking/ag.vim'
+Bundle 'vimwiki/vimwiki'

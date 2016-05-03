@@ -30,7 +30,8 @@ set tabstop=2 		" actual tabs occupy 8 characters
 set shiftwidth=2
 set wildmenu " show a navigable menu for tab completion
 set wildmode=longest,list,full
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*/node_modules,*/bower_components,*/fixtures  " ignores misc. files
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*/logs,*/target,*/node_modules,*/bower_components " ignores misc. files
+let g:ag_working_path_mode="r"
 set hidden
 
 " Searching preferences
@@ -40,7 +41,7 @@ set incsearch		" search as you type
 " Visual settings
 set number 		" Show row numbers
 set cursorline		" Highlight current line
-set gfn=Inconsolata-dz\ for\ Powerline:h12
+set gfn=Inconsolata-dz\ for\ Powerline:h13
 colorscheme jellybeans	" Default colorscheme jellybeans
 set noshowmode		" Hide the default mode text below statusline
 set laststatus=2
@@ -85,3 +86,5 @@ inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
+
+
