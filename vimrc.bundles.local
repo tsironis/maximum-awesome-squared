@@ -1,5 +1,6 @@
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'pangloss/vim-javascript'
-Bundle 'groenewege/vim-less'
 Bundle 'rking/ag.vim'
-Bundle 'vimwiki/vimwiki'
+Bundle 'prettier/vim-prettier'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'mxw/vim-jsx'

@@ -41,8 +41,11 @@ set incsearch		" search as you type
 " Visual settings
 set number 		" Show row numbers
 set cursorline		" Highlight current line
-set gfn=Inconsolata-dz\ for\ Powerline:h13
-colorscheme jellybeans	" Default colorscheme jellybeans
+" set gfn=Inconsolata\ for\ Powerline:h16
+" set gfn=Hack:h14
+set gfn=Inconsolata-dz\ for\ Powerline:h14
+" set gfn=Fira\ Mono\ for\ Powerline:h15
+colorscheme spacegray	" Default colorscheme
 set noshowmode		" Hide the default mode text below statusline
 set laststatus=2
 set list		" show trailing whitespace
@@ -86,5 +89,3 @@ inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
-
-
