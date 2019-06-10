@@ -1,4 +1,6 @@
-# Maximum Awesome Squared [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/tsironis/maximum-awesome-squared/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+> **WARNING!** This repository is no longer maintained.
+
+# Maximum Awesome Squared
 
 > Config files for vim and tmux, lovingly tended by a small subculture of
 > peace-loving hippies. Built for Mac OS X
